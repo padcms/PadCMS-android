@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="button_bottom_somair" parent="@android:style/Widget.ImageButton">
+         <item name="android:src">@drawable/button_bottom_sommaire_fg</item>
+      
+        <item name="android:background">@drawable/button_somaire_selector</item>
+    </style>
+
+</resources>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bying_activity_text_pattern">%s est l\u0027achat</string>
+    <string name="buying_text">Traitement…</string>
+    <string name="gallery_view_button">Gallery</string>
+    <string name="grid_view_button">Grid</string>
+    <string name="triangle_button">Last issue</string>
+    <string name="buy_button">Acheter</string>
+    <string name="download_button1">Télécharger</string>
+    <string name="install_button1">Installer</string>
+    <string name="open_button">Lire</string>
+    <string name="delete_button">Supprimer</string>
+    <string name="cancel_button">Annuler</string>
+    <string name="adyax_app_prepearing">Préparation des données. S\u0027il vous plaît attendre.</string>
+    <string name="manager_waiting">Attente…</string>
+    <string name="manager_sorry">Désolé, mais rien n\u0027est disponible</string>
+    <string name="manager_store">Kiosque</string>
+    <string name="buying_unavailable">Ce n\u0027est pas disponible</string>
+    <string name="dialog_ok">Oui</string>
+    <string name="delete_question">Vous voulez vous supprimer </string>
+    <string name="title_install">Installation…</string>
+    <string name="error_message_title">Erreur</string>
+    <string name="dialog_close">Fermer</string>
+    <string name="title_download">Téléchargement…</string>
+    <string name="title_waiting">Attente…</string>
+    <string name="error_no_space">Pas d\u0027espace sur carte SD</string>
+    <string name="error_inslallation_failed">échec de l\u0027installation</string>
+    <string name="error_no_connection">Pas de connexion Internet</string>
+    <string name="open_opening">Ouverture…</string>
+    <string name="viewer_waiting">S\u0027il vous plaît attendre…</string>
+    <string name="social_mail">Envoyer un courrier</string>
+    <string name="download_ends_msg">Téléchargement des fins</string>
+    <string name="download_msg">TéléchargementEEE …</string>
+    <string name="installing_msg">Le fait d\'installer</string>
+    <string name="openning_msg">Titre de journal</string>
+    <string name="download_impossible_no_connection">Télécharger impossible,\nNon connexion!\nEssayez celui-ci!</string>
+    
+    <string name="download_impossible_http_response_error">Téléchargement impossible, \n Réponse de serveur fausse\n Essayez dernier!</string>
+    <string name="download_impossible_damaged_IO">Erreur de téléchargement de dossier. \n Essayez dernier!</string>
+    <string name="download_impossible_connection_error">Erreur de connexion, \n Essayez dernier!</string>
+    <string name="download_impossible_no_card">Téléchargement impossible, \n Carte non trouvée!</string>
+    <string name="download_impossible_only_readable_card">Téléchargement impossible, \n La carte est lisible seulement!</string>
+    <string name="download_impossible_no_space">Téléchargement impossible, \n Trop peu d\'espace sur la carte.</string>
+    <string name="extracting_error">Erreur du fait d\'extraire.</string>
+    <string name="button_download">Téléchargement …</string>
+    <string name="button_delete">Effacer</string>
+    <string name="button_open">Ouvert</string>
+    <string name="button_install">Installer</string>
+    <string name="download_desc">Titre de journal</string>
+    <string name="warning_title">Avertissement</string>
+    <string name="concurrent_downloading_imposible_msg">Là télécharge d\'une autre édition encore, \nS\'il vous plaît, attendez sa fin et essayez de nouveau.</string>
+    <string name="concurrent_extracting_imposible_msg">Le fait d\'extraire d\'une autre édition.\nS\'il vous plaît, attendez sa fin et essayez de nouveau.</string>
+</resources>

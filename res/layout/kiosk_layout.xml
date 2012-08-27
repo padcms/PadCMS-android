@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:id="@+id/upperLinear"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/menu_bg"
+        android:paddingBottom="3dp"
+        android:paddingTop="3dp" >
+
+        <ImageButton
+            android:id="@+id/triangleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/kiosque_title"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/GalleryGridButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/grid_button_selector"
+                android:contentDescription="@string/gallery_view_button" />
+
+            <ImageButton
+                android:id="@+id/triangleButton"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:background="@drawable/triangle_button_selector"
+                android:contentDescription="@string/triangle_button"
+                android:visibility="gone" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/theGalleryLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/upperLinear"
+        android:gravity="center" >
+
+        <padcms.kiosk.view.gallery.CoversGalleryComponent
+            android:id="@+id/theGallery"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            android:spacing="-15dp" />
+
+        <padcms.kiosk.view.gallery.CoverControlsComponent
+            android:id="@+id/footerLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrollingViewTable"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/upperLinear"
+        android:visibility="gone" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <padcms.kiosk.view.grid.TableViewController
+                android:id="@+id/theGridView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top" >
+            </padcms.kiosk.view.grid.TableViewController>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

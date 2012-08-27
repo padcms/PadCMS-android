@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <ImageButton
+        style="@style/button_bottom_somair"
+        android:id="@+id/ImageButtonStripeMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:padding="0dp" >
+    </ImageButton>
+
+    <RelativeLayout
+        android:id="@+id/RelativeStripeMenuGapparyContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ImageButtonStripeMenu"
+        android:background="#A0000000"
+        android:visibility="gone" >
+
+        <Gallery
+            android:id="@+id/GallerySripeMenu"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center_vertical"
+            android:spacing="5dp"
+            android:unselectedAlpha="1" >
+        </Gallery>
+    </RelativeLayout>
+
+</RelativeLayout>

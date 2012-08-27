@@ -1,0 +1,124 @@
+package adyax.listeners;
+
+import java.io.File;
+
+import adyax.activity.ManagerActivity;
+import adyax.bll.Constants;
+import adyax.test.rue89.R;
+import adyax.manager.Manager;
+import adyax.revisions.Revision;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.os.Handler;
+import android.os.Message;
+import android.os.Handler.Callback;
+import android.view.View;
+import android.view.View.OnClickListener;
+
+public class DeleteButtonListener implements OnClickListener
+{
+	private ProgressDialog pBar;
+	
+	
+	public synchronized void onClick(View v)
+	{
+		v.setEnabled(false);
+		Manager.SELECTED_ITEM = 0;
+		pBar=new ProgressDialog(v.getContext());
+		pBar.setMessage(v.getContext().getResources().getString(R.string.delete_deleting));
+		
+		pBar.setCancelable(false);
+		
+		final ManagerActivity ma = (ManagerActivity) v.getContext();
+		final Revision revision = Manager.REVISIONS.get(Integer.parseInt(v.getTag().toString()));
+		final Context mContext=v.getContext();
+		AlertDialog.Builder builder=new AlertDialog.Builder(v.getContext());
+		builder.setMessage(v.getContext().getResources().getString(R.string.delete_question)+" "+revision.getRevision_id()+" ?");
+		builder.setNegativeButton(v.getContext().getResources().getString(R.string.dialog_cancel), new DialogInterface.OnClickListener() {
+			
+			
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();	
+				ma.setRotatable(true);
+			}
+		});
+	builder.setPositiveButton(v.getContext().getResources().getString(R.string.dialog_ok), new DialogInterface.OnClickListener() {
+			
+			
+			public void onClick(DialogInterface dialog, int which) {
+				pBar.show();
+				new Thread(new runDeleting(new File(Constants.getMagazineFolderByRevisionId(revision.getRevision_id()).getAbsolutePath()),mContext)).start();
+				SharedPreferences pref=mContext.getSharedPreferences(""+revision.getRevision_id(), 0);
+				if(pref!=null)
+				{
+					Editor edit =mContext.getSharedPreferences(""+revision.getRevision_id(), 0).edit();
+					edit .clear();
+					edit .commit();
+				}
+				dialog.dismiss();		
+			}
+		});
+		ma.setRotatable(false);
+		builder.show();
+		v.setEnabled(true);
+	}
+	Handler handler=new Handler(new Callback() {
+		
+		
+		public boolean handleMessage(Message msg) {
+				pBar.dismiss();
+				ManagerActivity activity = (ManagerActivity) msg.obj;
+				activity.makeList();
+				activity.setRotatable(true);
+				
+			return false;
+		}
+	}); 
+
+	class runDeleting implements Runnable
+	{
+		File file;
+		Context mContext;
+		public runDeleting(File file, Context mContext)
+		{
+			this.file=file;
+			this.mContext=mContext;
+		}
+		
+		public void run() {
+			
+			deleteRecursive(file);
+			
+			Message msg=new Message();
+			msg.obj=mContext;
+			handler.sendMessage(msg);
+		}
+		
+		private void deleteRecursive(File dir)
+		{
+			if (dir.isDirectory())
+		    {
+		        String[] children = dir.list();
+		        for (int i = 0; i < children.length; i++) 
+		        {
+		           File temp =  new File(dir, children[i]);
+		           if(temp.isDirectory())
+		           {
+		               deleteRecursive(temp);
+		           }
+		           else
+		           {
+		               temp.delete();
+		           }
+		        }
+		
+		        dir.delete();
+		    }    
+		}
+	};
+}

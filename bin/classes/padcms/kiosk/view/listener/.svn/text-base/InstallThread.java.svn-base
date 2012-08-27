@@ -1,0 +1,235 @@
+package adyax.listeners;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+
+import org.w3c.dom.Document;
+
+import adyax.bll.ApplicationController;
+import adyax.bll.Constants;
+import adyax.test.rue89.R;
+import adyax.manager.Manager;
+import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.os.StatFs;
+import android.util.Log;
+import arrancar4.posting.SocialSomewhat;
+
+public class InstallThread extends Thread
+{
+	private static final String TAG = "InstallThread";
+	private Handler mHandler;
+	private ThreadWorkingState state = new ThreadWorkingState(false);
+	private int revisionIdToInstall;
+	private File zipFile = null;
+	private Context context;
+
+	public InstallThread(Handler handler, int revId, Context context) {
+		mHandler = handler;
+		revisionIdToInstall = revId;
+		this.context = context;
+	}
+
+	private void deleteFolder(File file) {
+		if (file.isDirectory()) {
+			
+			File[] list = file.listFiles();
+			for (File f : list) {
+				Log.e("deleteFolder",""+f.getAbsolutePath()+"  name"+f.getName());
+				deleteFolder(f);
+			}
+			file.delete();
+		} else {
+			file.delete();
+		}
+	}
+
+	private void dirChecker(String name) {
+		Log.e("THE_LOG", name);
+		File file = new File(Constants.getMagazineFolderByRevisionId(
+				revisionIdToInstall).getAbsolutePath()
+				+ "/" + name);
+		if (file.isDirectory()) {
+			file.mkdirs();
+		} else {
+			new File(file.getParent()).mkdirs();
+		}
+	}
+
+	/*private void sendMessage(String key, int value) {
+		Message msg = new Message();
+		if (key.equals("length")) {
+			msg.arg1 = 0;
+			msg.arg2 = value;
+		} else if (key.equals("download")) {
+			msg.arg1 = 1;
+			msg.arg2 = value;
+		} else if (key.equals("downloaded")) {
+			msg.arg1 = 2;
+			msg.arg2 = value;
+		} else if (key.equals("unzipping")) {
+			msg.arg1 = 3;
+			msg.arg2 = value;
+		} else if (key.equals("unziped")) {
+			msg.arg1 = 4;
+			msg.arg2 = value;
+		} else if (key.equals("Error")) {
+			msg.arg1 = 5;
+			msg.arg2 = value;
+		}
+		mHandler.sendMessage(msg);
+	}*/
+
+	private void sendMessageError(String value) {
+		Message msg = new Message();
+		msg.arg1 = 5;
+		msg.obj = value;
+		mHandler.sendMessage(msg);
+	}
+
+	private void sendBoolean(String key, boolean value) {
+		Message msg = new Message();
+		Bundle bundle = new Bundle();
+		bundle.putBoolean(key, value);
+		msg.setData(bundle);
+		mHandler.sendMessage(msg);
+	}
+
+	// http://padcms.adyax.com/export/revision/id/63/continue/issue51-rev63-upd2600127896
+	
+	@Override
+	public void run() {
+		if (SocialSomewhat.isOnline(context)) {
+			long startTime = System.nanoTime();
+			try
+			{
+				state.setState(true);
+				int BUFFER_SIZE = 8196;
+				zipFile = Constants.getTempFolder().listFiles(
+						new FileFilter() {
+							
+							public boolean accept(File pathname) {
+								if (pathname.getPath().endsWith(".zip")) {
+									return true;
+								} else {
+									return false;
+								}
+							}
+						})[0];
+				long downloadTime = System.nanoTime();
+				sendBoolean("unzipping", true);
+				if (Constants.getMagasineManifestFile(revisionIdToInstall) == null) {
+					deleteFolder(getUnzipFolder());
+					getUnzipFolder().mkdir();
+					ZipInputStream zis = new ZipInputStream(
+							new BufferedInputStream(
+									new FileInputStream(zipFile), BUFFER_SIZE));
+
+					ZipEntry ze = null;
+					long unzipped = (long) (zipFile.length() * 1.5);
+
+					if (isFreeSpaceEnough(unzipped)) {
+						zis.close();
+						zis = new ZipInputStream(new BufferedInputStream(
+								new FileInputStream(zipFile), BUFFER_SIZE));
+						while ((ze = zis.getNextEntry()) != null) {
+							dirChecker(ze.getName());
+							File outputFile = new File((getUnzipFolder()
+									.getPath() + "/" + ze.getName()));
+
+							BufferedOutputStream fos = new BufferedOutputStream(
+									new FileOutputStream(outputFile),
+									BUFFER_SIZE);
+							byte b[] = new byte[BUFFER_SIZE];
+							int n;
+							while ((n = zis.read(b, 0, BUFFER_SIZE)) >= 0) {
+								fos.write(b, 0, n);
+								if (!state.getState()) {
+									zis.closeEntry();
+									fos.close();
+									zis.close();
+									return;
+								}
+							}
+							zis.closeEntry();
+							fos.close();
+						}
+						zis.close();
+						sendBoolean("unziped", true);
+
+					} else {
+						zis.close();
+						sendMessageError(context.getResources().getString(R.string.error_no_space));
+						return;
+
+					}
+				}
+				long unzippedTime = System.nanoTime();
+				Looper.prepare();
+				Log.i("Rvision to Install:",""+revisionIdToInstall);
+				Document manifest=Constants.getManifestDocument(Constants.getMagasineManifestFile(revisionIdToInstall));
+				if(manifest==null)
+				{
+					Log.e("!!!!!!!!!!!!!!!! INSTALATION", "manifest is null");
+				}
+				ApplicationController.parseAndConverMagazine(mHandler, state, (Activity) context, manifest, revisionIdToInstall);
+				Looper.myLooper().quit();
+				if (!state.getState())
+				{
+					return;
+				}
+				sendBoolean("converted", true);
+				long convertedTime = System.nanoTime();
+				zipFile.delete();
+
+				Log.e(TAG, "Download time = " + (downloadTime - startTime)
+						/ 1000000);
+				Log.e(TAG, "Unzipping time = " + (unzippedTime - downloadTime)
+						/ 1000000);
+				Log.e(TAG, "Converting time = "
+						+ (convertedTime - unzippedTime) / 1000000);
+				Log.e(TAG, "Total time = " + (convertedTime - startTime)
+						/ 1000000);
+			} catch (IOException e) {
+				if (getUnzipFolder().exists()) {
+					deleteFolder(getUnzipFolder());
+				}
+				e.printStackTrace();
+				Manager.SELECTED_ITEM = 0;
+				sendMessageError(e.getMessage());
+			}
+		} else {
+			Manager.SELECTED_ITEM = 0;
+			sendMessageError(context.getResources().getString(R.string.error_no_connection));
+		}
+	}
+
+	public void setWorking(boolean value) 
+	{
+		state.setState(value);
+	}
+
+	private boolean isFreeSpaceEnough(long length) {
+		File sdcard = Environment.getExternalStorageDirectory();
+		StatFs stat = new StatFs(sdcard.getAbsolutePath());
+		long available = stat.getAvailableBlocks() * (long) stat.getBlockSize();
+		return available - length * 1.1 >= 0;
+	}
+
+	private File getUnzipFolder() {
+		return Constants.getMagazineFolderByRevisionId(revisionIdToInstall);
+	}
+
+}

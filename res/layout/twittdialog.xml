@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/twittDialogLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#000">
+
+		<ImageView
+		    android:layout_margin="10dp"
+			android:id="@+id/logo"
+			android:src="@drawable/twitter_logo"
+			android:layout_height="wrap_content"
+			android:layout_width="fill_parent"
+			android:layout_centerHorizontal="true"
+			android:layout_alignParentTop="true"/>   
+	                   
+	     <TextView
+	    	android:gravity="right"
+	    	android:layout_margin="10dp"
+	    	android:id="@+id/counter"
+	    	android:layout_height="wrap_content"
+			android:layout_width="fill_parent" 
+			android:layout_below="@+id/logo"/>               
+	    
+	    <EditText
+	    	android:maxLength="140"
+	    	android:gravity="top|left"
+	    	android:id="@+id/textArea"
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="fill_parent"
+	    	android:text="I will twitt this text"
+	    	android:singleLine="false"
+	    	android:layout_margin="10dp"
+	    	android:layout_below="@+id/counter"
+	    	android:layout_above="@+id/btn_tweet"/>   
+	    
+	     <!-- android:background="#99eafc" -->
+	     <ImageButton
+	     	android:background="#0000"
+	     	android:src="@drawable/twitt_button"
+	    	android:id="@+id/btn_tweet"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:text="Tweet"
+			android:layout_centerHorizontal="true"
+	        android:layout_alignParentBottom="true" /> 
+	    
+</RelativeLayout>

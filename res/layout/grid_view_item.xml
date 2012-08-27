@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#222"
+    android:focusable="false"
+    android:gravity="center_vertical|center_horizontal"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:id="@+id/gridCover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp" >
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp" >
+
+        <TextView
+            android:id="@+id/textViewTitleInGrid"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:lines="3"
+            android:text="@string/download_desc"
+            android:textColor="#FFF"
+            android:textSize="14dip"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="180dp"
+            android:layout_height="0dip"
+            android:layout_gravity="center"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textViewStateInGrid"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:text="@string/buying_text"
+                android:textColor="#FFF"
+                android:textSize="10sp"
+                android:textStyle="italic"
+                android:visibility="visible" />
+
+            <ProgressBar
+                android:id="@+id/progressbar_id_in_grid"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="80dip"
+                android:layout_height="1dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="5dp" />
+
+            <!--
+                 <TextView android:id="@+id/textViewPercentsInGrid" android:layout_width="wrap_content" 
+				android:layout_height="wrap_content" android:text="@string/zero_percents" 
+				android:textColor="#FFF" />
+            -->
+
+
+            <!-- android:layout_weight="0.5" -->
+
+
+            <!-- will be BUY button -->
+
+            <Button
+                android:id="@+id/buttonFirstInGrid"
+                android:layout_width="80dip"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/simple_button_selector"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:text="@string/buy_button"
+                android:textColor="#FFF"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/buttonDownload"
+                android:layout_width="80dip"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/simple_button_selector"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:text="@string/open_button"
+                android:textColor="#FFF"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/buttonCancel"
+                android:layout_width="80dip"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/delete_button_selector"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:text="@string/cancel_button"
+                android:textColor="#FFF"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/buttonInstall"
+                android:layout_width="80dip"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/open_button_selector"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:text="@string/open_button"
+                android:textColor="#FFF"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/buttonOpen"
+                android:layout_width="80dip"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/open_button_selector"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:text="@string/open_button"
+                android:textColor="#FFF"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/buttonSecondInGrid"
+                android:layout_width="80dip"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/delete_button_selector"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:text="@string/delete_button"
+                android:textColor="#FFF"
+                android:visibility="visible" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

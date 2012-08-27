@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Air le mag</string>
+    <string name="appicationID">22</string>
+    <string name="rootFolder">padcms</string>
+    <string name="dbName">padcmsclient.db</string>
+    <string name="service_host">http://new.padcms.adyax.com</string>
+
+    <style name="BodyText" parent="@android:style/Widget.TextView">
+        <item name="android:height">100dp</item>
+        <item name="android:background">#0F0</item>
+    </style>
+<string name="button_photo_gallary_side">right</string>
+</resources>

@@ -1,0 +1,118 @@
+package adyax.listeners;
+
+import adyax.activity.ManagerActivity;
+import adyax.test.rue89.R;
+import adyax.manager.Manager;
+import adyax.revisions.Revision;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.app.AlertDialog.Builder;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+
+public class InstallButtonListener implements OnClickListener
+{
+	private InstallThread installThread;
+	private ProgressDialog progressDialog;
+	private Context context;
+	
+	final Handler handler = new Handler() 
+	{
+        
+		@Override
+		public void handleMessage(Message msg) 
+        {
+        	          
+            if (msg.getData().getBoolean("unziped"))
+            {
+            	Log.e("unzipped", "unzipped");
+            }
+            
+            if (msg.getData().getBoolean("conversionStart"))
+            {
+            	progressDialog.setIndeterminate(false);
+            	progressDialog.setProgress(0);
+            	progressDialog.setMax(msg.getData().getInt("pages"));
+            }
+            
+            if (msg.getData().getBoolean("conversion"))
+            {
+            	if (progressDialog.isShowing())
+            	{
+            		progressDialog.setProgress(msg.arg2);
+            	}
+            }
+            
+            if (msg.getData().getBoolean("converted"))
+            {
+            	Log.e("converted", "converted");
+            	progressDialog.setProgress(100);
+            	progressDialog.dismiss();
+            	ManagerActivity activity = (ManagerActivity) context;
+            	activity.setRotatable(true);
+        		activity.makeList();
+            }
+            if(msg.arg1==5)
+            {
+            	progressDialog.dismiss();
+            	final ManagerActivity activity = (ManagerActivity) context;
+            	   
+            	
+            	AlertDialog.Builder alert=new Builder(context);
+            	alert.setTitle(context.getResources().getString(R.string.error_message_title));
+            	alert.setMessage(msg.obj.toString());
+            	alert.setNegativeButton(context.getResources().getString(R.string.dialog_close), new  DialogInterface.OnClickListener() {
+					
+					
+					public void onClick(DialogInterface dialog, int which) 
+					{
+						dialog.dismiss();
+						activity.setRotatable(true);
+		            	activity.makeList();
+					}
+				});
+            	alert.show();         	
+            }
+        }
+    };  
+    
+	
+	public void onClick(View v)
+	{
+		v.setEnabled(false);
+		int index = Integer.parseInt(v.getTag().toString());
+		Manager.SELECTED_ITEM = index;
+		context = v.getContext();
+		final ManagerActivity ma = (ManagerActivity) v.getContext();
+		Revision revision = Manager.REVISIONS.get(index);
+		int revIdToInstall = revision.getRevision_id();
+		
+		progressDialog = new ProgressDialog(ma);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setMessage(context.getResources().getString(R.string.install_installing));
+        progressDialog.setCancelable(false);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, context.getResources().getString(R.string.dialog_cancel), new DialogInterface.OnClickListener()
+		{			
+			
+			public void onClick(DialogInterface dialog, int which)
+			{
+				installThread.setWorking(false);
+				progressDialog.dismiss();
+				ma.setRotatable(true);
+				ma.makeList();
+			}
+		});
+        installThread = new InstallThread(handler, revIdToInstall, v.getContext());
+        new Thread(installThread,"InstallThread").start();
+        ma.setRotatable(false);
+        progressDialog.show();		
+        v.setEnabled(false);
+	}
+
+}

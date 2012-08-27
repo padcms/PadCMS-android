@@ -1,0 +1,88 @@
+package adyax.listeners;
+
+
+import adyax.activity.ManagerActivity;
+import adyax.bll.ApplicationController;
+import adyax.bll.Constants;
+import adyax.test.rue89.R;
+import adyax.manager.Manager;
+import adyax.revisions.Revision;
+import android.app.ProgressDialog;
+import android.content.Context;
+
+import android.os.Handler;
+import android.os.Message;
+import android.os.Handler.Callback;
+import android.view.View;
+import android.view.View.OnClickListener;
+
+public class OpenButtonListener implements OnClickListener 
+{
+	private ProgressDialog pBar;
+	protected int revisionId = -1;
+	
+	public void onClick(View v)
+	{
+		v.setEnabled(false);
+		int index = Integer.parseInt(v.getTag().toString());
+		Manager.SELECTED_ITEM = index;
+		ManagerActivity ma = (ManagerActivity) v.getContext();
+		//if (revisionId == -1)
+		{
+			Revision revision = Manager.REVISIONS.get(index);
+			revisionId = revision.getRevision_id();
+		}
+		if (Constants.existMagasineFolder(revisionId)) {
+			pBar=new ProgressDialog(v.getContext());
+			pBar.setMessage(v.getResources().getString(R.string.open_opening));
+			
+			pBar.setCancelable(false);
+			ma.setRotatable(false);
+			pBar.show();
+			new Thread(new runOpening(revisionId,v.getContext())).start();
+		}
+		v.setEnabled(false);		
+	}
+	Handler handler=new Handler(new Callback() {
+		
+		
+		public boolean handleMessage(Message msg) {
+				ManagerActivity activity = (ManagerActivity) msg.obj;
+				if(activity !=null)
+				{
+					if (ApplicationController.megasinDocument != null) {
+						ApplicationController.openMegasine(activity);
+					}
+				}
+				pBar.dismiss();
+				activity.setRotatable(true);
+			return false;
+		}
+	}); 
+	class runOpening implements Runnable
+	{
+		int revisionID;
+		Context mContext;
+		
+		public runOpening(int revisionID, Context mContext)
+		{
+			this.revisionID=revisionID;
+			this.mContext=mContext;
+		}
+		
+		
+		public void run() 
+		{
+			ApplicationController.magasinPath = Constants.getMagazineFolderByRevisionId(revisionID).getAbsolutePath();
+			ApplicationController.magasinID = String.valueOf(revisionID);
+			ApplicationController.megasinDocument = Constants
+					.getManifestDocument(Constants
+					.getMagasineManifestFile(revisionID));
+			Message msg=new Message();
+			msg.obj=mContext;
+			handler.sendMessage(msg);
+		}
+		
+		
+	};
+}

@@ -1,0 +1,41 @@
+package adyax.listeners;
+
+import adyax.activity.BuyingActivity;
+import adyax.activity.ManagerActivity;
+import adyax.billing.Consts;
+import adyax.bll.Constants;
+import adyax.test.rue89.R;
+import adyax.manager.Manager;
+import android.content.Intent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Toast;
+
+public class BuyButtonListener implements OnClickListener
+{
+	
+	
+	public void onClick(View v)
+	{
+		if (Constants.getAccoutsCount(v.getContext()) < 1)
+		{
+			Toast.makeText(v.getContext(), v.getContext().getResources().getString(R.string.buying_unavailable), Toast.LENGTH_SHORT).show();
+		}	
+		else
+		{
+			v.setEnabled(false);
+			if (!Consts.IS_PURCHASING)
+			{
+				int index = Integer.parseInt(v.getTag().toString());
+				Manager.SELECTED_ITEM = index;
+				ManagerActivity ma = (ManagerActivity) v.getContext();
+				//ma.startDialogWaiting();
+				Consts.setBuyingRevision(Manager.REVISIONS.get(index));
+	
+				Intent intent = new Intent(ma, BuyingActivity.class);
+				ma.startActivity(intent);
+			}
+			v.setEnabled(true);
+		}
+	}
+}

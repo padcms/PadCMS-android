@@ -1,0 +1,163 @@
+package adyax.listeners;
+
+import adyax.activity.ManagerActivity;
+import adyax.test.rue89.R;
+import adyax.manager.Manager;
+import adyax.revisions.Revision;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.app.AlertDialog.Builder;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+
+public class DownloadButtonListener implements OnClickListener 
+{
+	private DownloadThread downloadThread;
+	private ProgressDialog progressDialog;
+	private Context context;
+	
+	final Handler handler = new Handler() 
+	{
+        
+		@Override
+		public void handleMessage(Message msg) 
+        {
+        	switch (msg.arg1)
+        	{
+        		case 1:
+        			progressDialog.setProgress(Integer.parseInt(msg.obj.toString()));
+        			break;
+        			
+        		case 100:
+        			progressDialog.setProgress(progressDialog.getMax());
+        			break;
+        	}
+        	
+        	
+        	//setting the max of progressbar
+            int total = msg.getData().getInt("length");
+            if(total > 0)
+            {
+            	progressDialog.setMax(total);
+            	progressDialog.setIndeterminate(false);
+            	progressDialog.setProgressNumberFormat("%1$d Mb/%2$d Mb");
+            	//Log.e("Setting the total", total + "");
+            }
+            
+            //setting the progress of downloading
+        	int downloaded = msg.getData().getInt("downloaded");
+        	if (downloaded > 0)
+        	{
+        		progressDialog.setProgress(downloaded);  
+	    //        Log.e("Setting the progress", (downloaded + " / " + progressDialog.getMax()));
+	        }
+        	
+        	//second part - unzipping
+            if (msg.getData().getBoolean("unzipping"))
+            {
+            	//Log.e("unzipping", "unzipping");         	
+            	progressDialog.setMessage(DownloadButtonListener.this.context.getResources().getString(R.string.install_installing));
+            	progressDialog.setProgress(100);
+            	
+            	progressDialog.setIndeterminate(true);
+            	progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            	//Log.e("THE_LOG", "AFTER SETTING INDETERMINATE");
+            }
+            
+            if (msg.getData().getBoolean("unziped"))
+            {
+            	Log.e("unzipped", "unzipped");
+            }
+            
+            if (msg.getData().getBoolean("conversionStart"))
+            {
+            	progressDialog.setIndeterminate(false);
+            	progressDialog.setProgress(0);
+            	progressDialog.setMax(msg.getData().getInt("pages"));
+            	progressDialog.setProgressNumberFormat("%1$d/%2$d");
+            }
+            
+            if (msg.getData().getBoolean("converted"))
+            {
+            	Log.e("converted", "converted");
+            	progressDialog.setProgress(100);
+            	progressDialog.dismiss();
+            	//Looper.loop();
+            	ManagerActivity activity = (ManagerActivity) context;
+            	activity.setRotatable(true);
+        		activity.makeList();
+            }
+            
+            if (msg.getData().getBoolean("conversion"))
+            {
+            	if (progressDialog.isShowing())
+            	{
+            		progressDialog.setProgress(msg.arg2);
+            	}
+            }
+            
+            if(msg.arg1==5)
+            {
+            	progressDialog.dismiss();
+            	final ManagerActivity activity = (ManagerActivity) context;
+            	//activity.setRotatable(true);
+            	//activity.makeList();   
+            	//Looper.loop();//---------------------------------------------------------------------
+            	AlertDialog.Builder alert=new Builder(context);
+            	alert.setTitle(DownloadButtonListener.this.context.getResources().getString(R.string.error_message_title));
+            	alert.setMessage(msg.obj.toString());
+            	alert.setNegativeButton(DownloadButtonListener.this.context.getResources().getString(R.string.dialog_close), new  DialogInterface.OnClickListener() {
+					
+					
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						dialog.dismiss();	
+						activity.setRotatable(true);
+		            	activity.makeList();   
+					}
+				});
+            	alert.show();         	
+            }
+        }
+    };  
+    
+	
+	public void onClick(View v)
+	{
+		v.setEnabled(false);
+		int index = Integer.parseInt(v.getTag().toString());
+		Manager.SELECTED_ITEM = index;
+		context = v.getContext();
+		final ManagerActivity ma = (ManagerActivity) v.getContext();
+		Revision revision = Manager.REVISIONS.get(index);
+		int revIdToDownload = revision.getRevision_id();
+		
+		progressDialog = new ProgressDialog(ma);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setMessage(DownloadButtonListener.this.context.getResources().getString(R.string.download_downloading));
+        progressDialog.setCancelable(false);
+        progressDialog.setIndeterminate(false);
+        progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, DownloadButtonListener.this.context.getResources().getString(R.string.dialog_cancel), new DialogInterface.OnClickListener()
+		{			
+			
+			public void onClick(DialogInterface dialog, int which)
+			{
+				//Looper.loop();
+				downloadThread.setState(false);
+				progressDialog.dismiss();
+				ma.setRotatable(true);
+				ma.makeList();
+			}
+		});
+        downloadThread = new DownloadThread(handler, revIdToDownload, v.getContext());
+        downloadThread.start();
+        ma.setRotatable(false);
+        progressDialog.show();	
+        v.setEnabled(true);
+	}
+}

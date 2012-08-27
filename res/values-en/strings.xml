@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="bying_activity_text_pattern">%s is buying</string>
+    <string name="title_download">Downloading…</string>
+    <string name="title_waiting">Waiting…</string>
+    <string name="title_install">Installing…</string>
+    <string name="buying_text">"Processing…"</string>
+    <string name="open_opening">Opening…</string>
+    <string name="gallery_view_button">Gallery</string>
+    <string name="grid_view_button">Grid</string>
+    <string name="triangle_button">Last issue</string>
+    <string name="buy_button">Buy</string>
+    <string name="download_button1">Download</string>
+    <string name="install_button1">Install</string>
+    <string name="open_button">Open</string>
+    <string name="delete_button">Delete</string>
+    <string name="adyax_app_prepearing">Preparing data. Please wait.</string>
+    <string name="manager_waiting">Waiting…</string>
+    <string name="manager_sorry">Sorry, but nothing is avalible</string>
+    <string name="manager_store">Store</string>
+    <string name="buying_unavailable">This is unavailable</string>
+    <string name="delete_question">You sure whant delete </string>
+    <string name="dialog_ok">OK</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="download_number_format">%1$d Mb/%2$d Mb</string>
+    <string name="download_default_format">%1$d/%2$d</string>
+    <string name="error_message_title">Error</string>
+    <string name="dialog_close">Close</string>
+    <string name="error_no_space">No space on SD card</string>
+    <string name="error_inslallation_failed">Installation failed</string>
+    <string name="error_no_connection">No internet connection</string>
+    <string name="warning_title">Warning</string>
+    <string name="concurrent_downloading_imposible_msg">Downloading of another issue.\nPlease, wait for its ending and try again.</string>
+    <string name="concurrent_extracting_imposible_msg">Extracting of another issue.\nPlease, wait for its ending and try again.</string>
+    <string name="viewer_waiting">Wait please…</string>
+    <string name="social_mail">Send a mail</string>
+    <string name="download_ends_msg">Downloading ends</string>
+    <string name="download_msg">Downloading…</string>
+    <string name="installing_msg">Installing…</string>
+    <string name="openning_msg">Journal Title</string>
+    <string name="download_impossible_no_connection">Download impossible,\nNo Connection!\n Try latter!</string>
+    <string name="download_impossible_http_response_error">Download impossible, \n Wrong server response\n Try latter!</string>
+    <string name="download_impossible_damaged_IO">Error of file downloading. \n Try latter!</string>
+    <string name="download_impossible_connection_error">Connection Error, \n Try latter!</string>
+    <string name="download_impossible_no_card">Download impossible, \n Card not found!</string>
+    <string name="download_impossible_only_readable_card">Download impossible, \n Card is only readable!</string>
+    <string name="download_impossible_no_space">Download impossible, \n Too little space on card.</string>
+    <string name="extracting_error">Error of extracting.</string>
+    <string name="button_download">Download</string>
+    <string name="button_delete">Delete</string>
+    <string name="button_open">Open</string>
+    <string name="button_install">Install</string>
+    <string name="download_desc">Journal Title</string>
+
+</resources>

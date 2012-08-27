@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <selector xmlns:android="http://schemas.android.com/apk/res/android">
+     <item android:state_pressed="true"
+           android:drawable="@drawable/active_zone_shape" /> <!-- pressed -->
+     <item android:state_focused="false" android:drawable="@drawable/btn_activezone_select" /> <!-- focused -->
+     <item android:drawable="@drawable/btn_activezone_select" /> <!-- default -->
+ </selector>

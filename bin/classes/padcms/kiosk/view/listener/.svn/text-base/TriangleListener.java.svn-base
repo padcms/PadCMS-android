@@ -1,0 +1,22 @@
+package adyax.listeners;
+
+import adyax.bll.ApplicationController;
+import android.content.Context;
+import android.view.View;
+
+public class TriangleListener extends OpenButtonListener
+{
+	
+	@Override
+	public void onClick(View v)
+	{
+		String revisionId = v.getContext().getApplicationContext().getSharedPreferences("lastPlace", Context.MODE_PRIVATE).getString("lastRevisionId", null);
+		if (revisionId != null)
+		{
+			TriangleListener.this.revisionId = Integer.parseInt(revisionId);
+			ApplicationController.byTriangle = true;
+			v.setTag(0);
+			super.onClick(v);
+		}
+	}
+}

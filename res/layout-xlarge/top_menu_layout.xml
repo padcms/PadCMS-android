@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:id="@+id/Top_menu"
+        android:layout_width="fill_parent"
+        android:layout_height="45dip"
+        android:background="@drawable/menu_bg"
+        android:gravity="center_vertical" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical" >
+
+            <ImageButton
+                android:id="@+id/ImageButton_Home_button"
+                android:layout_width="45dip"
+                android:layout_height="45dip"
+                android:layout_marginLeft="10dip"
+                android:background="@drawable/button_top_menu_selector"
+                android:paddingBottom="2dip"
+                android:paddingTop="2dip"
+                android:scaleType="fitCenter"
+                android:src="@drawable/button_home" />
+
+            <ImageButton
+                android:id="@+id/ImageButton_Summary_button"
+                android:layout_width="40dip"
+                android:layout_height="45dip"
+                android:layout_marginLeft="15dip"
+                android:background="@drawable/button_top_menu_selector"
+                android:paddingBottom="2dip"
+                android:paddingTop="2dip"
+                android:scaleType="fitCenter"
+                android:src="@drawable/button_summary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:paddingRight="0dip" >
+
+            <ImageButton
+                android:id="@+id/ImageButton_SocialMenu_button"
+                android:layout_width="55dip"
+                android:layout_height="45dip"
+                android:layout_marginRight="15dip"
+                android:background="@drawable/button_top_menu_selector"
+                android:paddingBottom="2dip"
+                android:paddingTop="2dip"
+                android:scaleType="fitCenter"
+                android:src="@drawable/button_partager" />
+
+            <ImageButton
+                android:id="@+id/ImageButton_Help_button"
+                android:layout_width="55dip"
+                android:layout_height="45dip"
+                android:layout_marginRight="10dip"
+                android:background="@drawable/button_top_menu_selector"
+                android:paddingBottom="2dip"
+                android:paddingTop="2dip"
+                android:scaleType="fitCenter"
+                android:src="@drawable/button_answ"
+                android:visibility="visible" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/Top_menu_summary_layout"
+        android:layout_width="250dip"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="45dip"
+        android:paddingTop="35dip"
+        android:visibility="gone" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="15" >
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="15"
+                android:scaleType="fitXY"
+                android:src="@drawable/top_nav_t" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dip"
+                android:layout_weight="15"
+                android:gravity="center_horizontal"
+                android:text="SOMMAIRE"
+                android:textSize="14dip" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="60" >
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="60"
+                android:scaleType="fitXY"
+                android:src="@drawable/top_nav_m" />
+
+            <ListView
+                android:id="@+id/summary_list"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_weight="60"
+                android:divider="#000"
+                android:dividerHeight="5dip"
+                android:footerDividersEnabled="false"
+                android:headerDividersEnabled="false" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="15"
+            android:scaleType="fitXY"
+            android:src="@drawable/top_nav_b" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/Top_menu_social_layout"
+        android:layout_width="120dip"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="55dp"
+        android:orientation="vertical"
+        android:paddingTop="35dip"
+        android:visibility="gone" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="15" >
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="15"
+                android:scaleType="fitXY"
+                android:src="@drawable/share_popup_top" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="60"
+            android:background="@drawable/share_popup" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="2dip"
+                android:paddingRight="2dip" >
+
+                <LinearLayout
+                    android:id="@+id/ImageViewFaceBook"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_top_menu_selector"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/btn_facebook" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="15"
+                        android:text="@string/social_facebook"
+                        android:textSize="11dip" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ImageViewTwitter"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_top_menu_selector"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/btn_twitter" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="15"
+                        android:text="@string/social_twitter"
+                        android:textSize="11dip" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ImageViewEmail"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_top_menu_selector"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/btn_email" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="15"
+                        android:text="@string/social_mail"
+                        android:textSize="11dip" />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="15"
+            android:scaleType="fitXY"
+            android:src="@drawable/share_popup_bottom" />
+    </LinearLayout>
+
+</RelativeLayout>

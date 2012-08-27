@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/vaRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <VideoView
+        android:id="@+id/vaVideo"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerInParent="true" />
+
+    <!-- button OK and SeekBar and text of time -->
+
+    <LinearLayout
+        android:id="@+id/vaTopMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
+        android:visibility="visible" >
+
+        <Button
+            android:id="@+id/vaOK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/simple_ok_button_selector"
+            android:text="@string/ok"
+            android:textColor="@android:color/white"
+            android:textSize="12dip" />
+
+        <!-- сделать тоньше -->
+
+        <SeekBar
+            android:id="@+id/vaSeek"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:maxHeight="5dp"
+            android:minHeight="2dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:progress="0"
+            android:progressDrawable="@drawable/progress_drawable"
+            android:secondaryProgress="0"
+            android:thumb="@drawable/thumb_s" />
+
+        <TextView
+            android:id="@+id/vaTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero_time_text"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <!-- 3 buttons: fastBack, playPause, fastForward -->
+
+    <LinearLayout
+        android:id="@+id/vaBottomMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:visibility="visible" >
+
+        <ImageButton
+            android:id="@+id/vaFastBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_bg"
+            android:src="@drawable/rew" />
+
+        <ImageButton
+            android:id="@+id/vaPlayPause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_bg"
+            android:src="@drawable/pause" />
+
+        <ImageButton
+            android:id="@+id/vaFastForward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_bg"
+            android:src="@drawable/fforvard" />
+    </LinearLayout>
+
+</RelativeLayout>

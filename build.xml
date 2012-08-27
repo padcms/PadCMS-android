@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+    name="KioskActivity"
+    default="" >
+
+    <property
+        name="config-target-dir-path-value"
+        value="res/values" />
+
+    <property
+        name="config-target-dir-path-value-drawable"
+        value="res" />
+
+    <target name="-change-package" >
+
+        <echo>
+Build packedge: ${config.target.package}        
+        </echo>
+
+        <property
+            name="match.end"
+            value="&quot;" />
+
+        <property
+            name="matchPackedge.start"
+            value="package=\&quot;" />
+
+        <property
+            name="matchImportPackedge.start"
+            value="import " />
+
+        <property
+            name="matchImportPackadge.end"
+            value=".R;" />
+
+        <replaceregexp
+            file="AndroidManifest.xml"
+            match="${matchPackedge.start}[^&quot;]*${match.end}"
+            replace="${matchPackedge.start}${config.target.package}${match.end}" />
+
+        <replaceregexp
+            byline="true"
+            match="${matchImportPackedge.start}[^&quot;]*${matchImportPackadge.end}"
+            replace="${matchImportPackedge.start}${config.target.package}${matchImportPackadge.end}" >
+
+            <fileset dir="src" >
+
+                <include name="**/*.java" />
+            </fileset>
+        </replaceregexp>
+    </target>
+
+    <target name="-switch-config" >
+
+        <echo>
+Configuration file: ${config.filename}        
+        </echo>
+
+        <property
+            name="config-target-path"
+            value="${config-target-dir-path-value}" />
+
+        <copy
+            encoding="utf-8"
+            overwrite="true"
+            todir="${config-target-path}" >
+
+            <fileset dir="${config.target.values}" >
+
+                <include name="**" />
+            </fileset>
+        </copy>
+
+        <copy
+            encoding="utf-8"
+            overwrite="true"
+            todir="${config-target-dir-path-value-drawable}" >
+
+            <fileset dir="${config.imageFolder}" >
+
+                <include name="**" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="release-air" >
+
+        <echo>
+Selected release-air configuration         
+        </echo>
+
+        <antcall target="-switch-config" >
+
+            <param
+                name="config.target.values"
+                value="target/air_le_mag/values" />
+
+            <param
+                name="config.imageFolder"
+                value="target/air_le_mag/images/" />
+        </antcall>
+
+        <antcall target="-change-package" >
+
+            <param
+                name="config.target.package"
+                value="padcms.application11" />
+        </antcall>
+    </target>
+
+    <target name="release-dccv" >
+
+        <echo>
+Selected release-dccv configuration   
+        </echo>
+
+        <antcall target="-switch-config" >
+
+            <param
+                name="config.target.values"
+                value="target/dccv/values" />
+
+            <param
+                name="config.imageFolder"
+                value="target/dccv/images" />
+        </antcall>
+
+        <antcall target="-change-package" >
+
+            <param
+                name="config.target.package"
+                value="padcms.application12" />
+        </antcall>
+    </target>
+
+    <target name="release-rue" >
+
+        <echo>
+Selected release-rue configuration
+        </echo>
+
+        <antcall target="-switch-config" >
+
+            <param
+                name="config.target.values"
+                value="target/rue/values" />
+
+            <param
+                name="config.imageFolder"
+                value="target/rue/images/" />
+        </antcall>
+
+        <antcall target="-change-package" >
+
+            <param
+                name="config.target.package"
+                value="padcms.application10" />
+        </antcall>
+    </target>
+
+    <property file="local.properties" />
+
+    <loadproperties srcFile="project.properties" />
+
+    <fail
+        message="sdk.dir is missing. Make sure to generate local.properties using &apos;android update project&apos; or to inject it through an env var"
+        unless="sdk.dir" />
+
+    <import
+        file="custom_rules.xml"
+        optional="true" />
+
+    <import file="${sdk.dir}/tools/ant/build.xml" />
+
+</project>

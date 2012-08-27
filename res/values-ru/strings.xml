@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="bying_activity_text_pattern">%1 в процессе покупки</string>
+    <string name="buying_text">Обработка…</string>
+    <string name="title_install">Установка…</string>
+    <string name="title_download">Загружается…</string>
+    <string name="title_waiting">Ожидается…</string>
+    <string name="open_opening">Открытие…</string>
+    <string name="download_msg">Загрузка…</string>
+    <string name="installing_msg">Установка…</string>
+    <string name="gallery_view_button">Галлерея</string>
+    <string name="grid_view_button">Таблица</string>
+    <string name="triangle_button">Последняя статья</string>
+    <string name="buy_button">Купить</string>
+    <string name="download_button1">Загрузить</string>
+    <string name="install_button1">Установить</string>
+    <string name="open_button">Открыть</string>
+    <string name="delete_button">Удалить</string>
+    <string name="adyax_app_prepearing">Подготовка данных. Пожалуйста, подождите.</string>
+    <string name="manager_waiting">Ожидайте…</string>
+    <string name="manager_sorry">Система временно недоступна</string>
+    <string name="manager_store">Магазин</string>
+    <string name="buying_unavailable">Это недоступно</string>
+    <string name="delete_question">Вы действительно хотите удалить </string>
+    <string name="dialog_ok">OK</string>
+    <string name="cancel_button">Отмена</string>
+    <string name="download_number_format">%1$d Mб/%2$d Mб</string>
+    <string name="download_default_format">%1$d/%2$d</string>
+    <string name="error_message_title">Ошибка</string>
+    <string name="dialog_close">Закрыть</string>
+    <string name="error_no_space">Недостаточно места на карте памяти</string>
+    <string name="error_inslallation_failed">Сбой инсталляции</string>
+    <string name="error_no_connection">Нет интернет соединения</string>
+    <string name="warning_title">Внимание</string>
+    <string name="concurrent_downloading_imposible_msg">Уже происходит закачка другого выпуска,\nПожулуйста, подождите завершения и повторите действие.</string>
+    <string name="concurrent_extracting_imposible_msg">Установка другой статьи.\nПожалуйста, подождите завершения установки и повторите запрос.</string>
+    <string name="viewer_waiting">Подождите пожалуйста…</string>
+    <string name="social_mail">Отправить email</string>
+    <string name="download_ends_msg">Загрузка завершена</string>
+    <string name="openning_msg">Заголовок журнала</string>
+    <string name="download_impossible_no_connection">Загрузка невозможна,\nНет соединения!\nПопробуйте позже!</string>
+    <string name="download_impossible_http_response_error">Загрузка невозможна,\nНеверный ответ сервера\nПопробуйте позже!</string>
+    <string name="download_impossible_damaged_IO">Ошибка при загрузке файла.\nПопробуйте позже!</string>
+    <string name="download_impossible_connection_error">Ошибка соединения,\nПопробуйте позже!</string>
+    <string name="download_impossible_no_card">Загрузка невозможна,\nКарта памяти не найдена!</string>
+    <string name="download_impossible_only_readable_card">Загрузка невозможна,\nКарта защищена от записи!</string>
+    <string name="download_impossible_no_space">Загрузка невозможна,\nНедостаточно места на карте.</string>
+    <string name="extracting_error">Ошибка установки.</string>
+    <string name="button_download">Загрузить</string>
+    <string name="button_delete">Удалить</string>
+    <string name="button_open">Открыть</string>
+    <string name="button_install">Установить</string>
+    <string name="download_desc">Заголовок журнала</string>
+
+</resources>

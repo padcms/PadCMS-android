@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayoutIssueView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/TopMenuContainer"
+        layout="@layout/top_menu_layout" />
+
+    <RelativeLayout
+        android:id="@+id/BottomMenuContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <ImageButton
+            android:id="@+id/ImageButtonStripeMenu"
+            style="@style/button_bottom_somair"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:padding="0dp" >
+        </ImageButton>
+
+        <RelativeLayout
+            android:id="@+id/RelativeStripeMenuGapparyContainer"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ImageButtonStripeMenu"
+            android:background="#A0000000"
+            android:visibility="gone" >
+
+            <Gallery
+                android:id="@+id/GallerySripeMenu"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="top"
+                android:spacing="5dp"
+                android:unselectedAlpha="1" >
+            </Gallery>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/RelativeHorisontalMenu"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#A0000000" >
+
+        <Gallery
+            android:id="@+id/GalleryHorisontalMenu"
+            android:layout_width="fill_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center_vertical"
+            android:spacing="5dp"
+            android:unselectedAlpha="1" >
+        </Gallery>
+    </RelativeLayout>
+
+</RelativeLayout>
